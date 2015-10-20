@@ -29,12 +29,17 @@ public class OutputPractice {
 			return;
 		}
 		
-		Hanoi.solve(levelCount,1,2,3);
-		
+//		Hanoi.solve(levelCount,1,2,3);
+		Hanoi.solve_my_practice1(levelCount, 1, 2, 3);
 		System.out.println("done !");
 		
+//		limittest();
 	}
 	
-
+	private static void limittest(){
+		int a = Integer.MIN_VALUE;
+		System.out.println("a min ="+a);
+		System.out.println("a min - 1 = " + (a-1));
+	}
 
 }

@@ -1,18 +1,19 @@
 package sort;
 
-import java.util.Random;
+
+import tools.StopWatch;
 
 public class BaseSort {
 	
 	public static void main(String[] args){
-		int count = 20;
-		SortTestData[] tdata = new SortTestData[count];
-		Random random = new Random();
-		for(int i = 0;i<count;i++){
-			tdata[i] = new SortTestData(random.nextInt(count));
+		int count = 10000000;
+		int step_length = 100000;
+		SortTestData[] tdata = TestDataProducerForSort.geTestDatas(count);
+		SortTestData[] tdata1 = new SortTestData[count];
+		for(int i=0;i<count;i++){
+			tdata1[i] = tdata[i];
 		}
-		
-		for(int i = 0;i<count;i++){
+		for(int i = 0;i<count;i+=step_length){
 			System.out.print(tdata[i].getKeyValue() + " ");
 			if((i+1)%10 == 0)
 				System.out.println("");
@@ -21,20 +22,37 @@ public class BaseSort {
 		System.out.println("");
 		System.out.println("###################################");
 		System.out.println("");
+		StopWatch stopWatch = new StopWatch();
 		
 		
 //		SelectionSort.sort(tdata);
 //		InsertionSort.sort(tdata);
 //		ShellSort.sort(tdata);
-		MergeSort.sort(tdata);
+//		MergeSort.sort(tdata);
+//		MergeSort.sort_BU(tdata);
+//		MergerSort_1.sort(tdata);
+//		QuickSort.sort(tdata);
+		MergeSortL.mergeSortL(tdata);
+		double time_length = stopWatch.elapsedTime();
+		System.out.println("merge sort 1 time:"+time_length);
+		//MergeSortL.show_result(step_length);
+		
+		stopWatch = new StopWatch();
+		MergerSort_1.sort(tdata);
+		time_length = stopWatch.elapsedTime();
+		System.out.println("merge sort 2 time:" + time_length);
 		
 		
-		for(int i = 0;i<count;i++){
-			System.out.print(tdata[i].getKeyValue() + " ");
-			if((i+1)%10 == 0)
-				System.out.println("");
-			
-		}
+		stopWatch = new StopWatch();
+		QuickSort.sort(tdata1);
+		time_length = stopWatch.elapsedTime();
+		System.out.println("quick sort time:" + time_length);
+		
+//		for(int i = 0;i<count;i+=step_length){
+//			System.out.print(tdata[i].getKeyValue() + " ");
+//			if((i+1)%10 == 0)
+//				System.out.println("");			
+//		}
 		
 		
 	}

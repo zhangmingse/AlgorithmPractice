@@ -23,10 +23,12 @@ public class MergeSort extends BaseSort {
 		}
 	}
 
-	public static void sort(Comparable<Object>[] a) {
+	@SuppressWarnings("unchecked")
+	public static void sort(Comparable<Object>[] arr_to_sort) {
 
-		aux = new Comparable[a.length];
-		sort(a,0,a.length-1);
+		aux = new Comparable[arr_to_sort.length];
+		sort(arr_to_sort,0,arr_to_sort.length-1);
+		
 	}
 
 	private static void sort(Comparable<Object>[] a, int lo, int hi) {
@@ -39,5 +41,4 @@ public class MergeSort extends BaseSort {
 		sort(a,mid+1,hi);
 		merge(a,lo,mid,hi);
 	}
-
 }

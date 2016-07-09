@@ -9,44 +9,53 @@ public class BaseSort {
 		int count = 10000000;
 		int step_length = 100000;
 		SortTestData[] tdata = TestDataProducerForSort.geTestDatas(count);
-		SortTestData[] tdata1 = new SortTestData[count];
-		for(int i=0;i<count;i++){
-			tdata1[i] = tdata[i];
-		}
-		for(int i = 0;i<count;i+=step_length){
-			System.out.print(tdata[i].getKeyValue() + " ");
-			if((i+1)%10 == 0)
-				System.out.println("");
-			
-		}
+
+//		for(int i = 0;i<count;i+=step_length){
+//			System.out.print(tdata[i].getKeyValue() + " ");
+//			if((i+1)%10 == 0)
+//				System.out.println("");
+//			
+//		}
 		System.out.println("");
 		System.out.println("###################################");
-		System.out.println("");
-		StopWatch stopWatch = new StopWatch();
+		System.out.println("size     mergeL  merge   quick");
+		count = 100000;
+		for(int i = 1;i<=10;i++){
+			
+			int count_current = count*i;
+			System.out.format("%-9d", count_current);
+			SortTestData[] testData1 = new SortTestData[count_current];
+			SortTestData[] testData2 = new SortTestData[count_current];
+			SortTestData[] testData3 = new SortTestData[count_current];
+			
+			for(int j = 0;j<count_current;j++){
+				testData1[j]=new SortTestData(tdata[j].getKeyValue());
+				testData2[j]=new SortTestData(tdata[j].getKeyValue());
+				testData3[j]=new SortTestData(tdata[j].getKeyValue());
+				
+			}
+			
+			StopWatch stopWatch = new StopWatch();
+			MergeSortL.mergeSortL(testData1);
+			double time_length = stopWatch.elapsedTime();
+			System.out.format("%5.3f", time_length);
+			System.out.print("s  ");
+			//MergeSortL.show_result(step_length);
+			
+			stopWatch = new StopWatch();
+			MergerSort_1.sort(testData2);
+			time_length = stopWatch.elapsedTime();
+			System.out.format("%5.3f", time_length);
+			System.out.print("s  ");
+			
+			
+			stopWatch = new StopWatch();
+			QuickSort.sort(testData3);
+			time_length = stopWatch.elapsedTime();
+			System.out.format("%5.3f", time_length);
+			System.out.println("s  ");
+		}
 		
-		
-//		SelectionSort.sort(tdata);
-//		InsertionSort.sort(tdata);
-//		ShellSort.sort(tdata);
-//		MergeSort.sort(tdata);
-//		MergeSort.sort_BU(tdata);
-//		MergerSort_1.sort(tdata);
-//		QuickSort.sort(tdata);
-		MergeSortL.mergeSortL(tdata);
-		double time_length = stopWatch.elapsedTime();
-		System.out.println("merge sort 1 time:"+time_length);
-		//MergeSortL.show_result(step_length);
-		
-		stopWatch = new StopWatch();
-		MergerSort_1.sort(tdata);
-		time_length = stopWatch.elapsedTime();
-		System.out.println("merge sort 2 time:" + time_length);
-		
-		
-		stopWatch = new StopWatch();
-		QuickSort.sort(tdata1);
-		time_length = stopWatch.elapsedTime();
-		System.out.println("quick sort time:" + time_length);
 		
 //		for(int i = 0;i<count;i+=step_length){
 //			System.out.print(tdata[i].getKeyValue() + " ");

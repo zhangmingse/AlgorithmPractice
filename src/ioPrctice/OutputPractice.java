@@ -4,10 +4,23 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import sort.SortTestData;
+
 public class OutputPractice {
 	
 	public static void main(String[] args){
 		System.out.println("hello world");
+		
+		SortTestData[] a = new SortTestData[3];
+		a[0] = new SortTestData(0);
+		a[1] = new SortTestData(1);
+		a[2] = new SortTestData(2);
+		SortTestData[] a1 = new SortTestData[3];
+		a1[0] = a[0];
+		a1[1] = a[1];
+		a1[2] = a[2];
+
+		
 		
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		System.out.println("please input level number:");

@@ -8,6 +8,10 @@ public class SortTestData implements Comparable<Object>{
 		keyValue = i;
 	}
 	
+	public void setKeyValue(int i){
+		keyValue = i;
+	}
+	
 	public int getKeyValue(){
 		return keyValue;
 	}

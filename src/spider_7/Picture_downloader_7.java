@@ -42,7 +42,7 @@ public class Picture_downloader_7 implements Runnable {
 			}
 			inputStream.close();
 			fOutputStream.close();
-			System.out.println(page_number+"-"+file_name+" download complite");
+			System.out.println(page_number+"-"+file_name+" download complete");
 			
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,5 +1,7 @@
 package spider_8;
 
+import spider_9.PictureDownloader_9;
+
 public class PageParser_8 implements Runnable{
 
 	int page_number;

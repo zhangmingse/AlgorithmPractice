@@ -37,10 +37,10 @@ public class PictureDownloader_8 implements Runnable {
 			InputStream inputStream = uConnection.getInputStream();
 			byte[] in_buffer = new byte[1024*512];
 			int read_len = 0;
-			while(true){
-				read_len=inputStream.read(in_buffer);
-				if(read_len<=0)
-					break;
+			while((read_len = inputStream.read(in_buffer))>0){
+//				read_len=inputStream.read(in_buffer);
+//				if(read_len<=0)
+//					break;
 				fOutputStream.write(in_buffer, 0, read_len);
 			}
 			fOutputStream.close();

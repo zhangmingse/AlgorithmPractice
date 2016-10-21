@@ -2,6 +2,8 @@ package spider_9;
 
 import java.util.Random;
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
@@ -12,11 +14,13 @@ import org.apache.http.impl.client.HttpClients;
 
 public class Spider_9 {
 
+	public static ExecutorService pool = Executors.newFixedThreadPool(100);
 	public static void main(String args[]) {
 		Random random = new Random();
 		int start_page_number = 2174;
 		int page_count = 5;
 		int end_page_number = start_page_number - page_count;
+		
 		String url = "http://jandan.net/ooxx/page-";
 		
 		try {
@@ -43,14 +47,15 @@ public class Spider_9 {
 				scanner.close();
 				
 				
-				PageParser_9_1 parser_9 = new PageParser_9_1(builder.toString(), i);
-				new Thread(parser_9).start();
-				
+				PageParser_9_1 parser_9_1 = new PageParser_9_1(builder.toString(), i);
+//				new Thread(parser_9).start();
+				pool.submit(parser_9_1);
 				
 				int time_span = (3+random.nextInt(7)) * 1000;
 				Thread.sleep(time_span);
 				
 			}
+			pool.shutdown();
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.err.println(e.getMessage());

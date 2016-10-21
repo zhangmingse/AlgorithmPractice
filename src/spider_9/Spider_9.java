@@ -43,7 +43,7 @@ public class Spider_9 {
 				scanner.close();
 				
 				
-				PageParser_9 parser_9 = new PageParser_9(builder.toString(), i);
+				PageParser_9_1 parser_9 = new PageParser_9_1(builder.toString(), i);
 				new Thread(parser_9).start();
 				
 				

@@ -55,7 +55,7 @@ public class PictureDownloader_9_1 implements Runnable {
 			if (file != null && file.exists()) {
 				try {
 					outputStream.close();
-					inputStream.close();
+//					inputStream.close();
 				}catch(Exception e1){
 					e1.printStackTrace();
 				} 

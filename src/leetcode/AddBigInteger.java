@@ -1,57 +1,6 @@
-package test;
+package leetcode;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.Writer;
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-public class test {
-	public static void main(String args[]) {
-		System.out.println("hi");
-		int i = -1;
-		i = i >> 1;
-		System.out.println(i);
-
-//		File file = new File("C:\\Users\\think\\Downloads\\view-source_jandan.net_ooxx_page-2174#comments.html");
-//		if (!file.exists()) {
-//			System.err.println("file doesn't exist!");
-//			return;
-//		}
-//		try {
-//			Scanner scanner = new Scanner(new FileInputStream(file));
-//			StringBuilder builder = new StringBuilder();
-//
-//			while (scanner.hasNextLine()) {
-//				builder.append(scanner.nextLine());
-//			}
-//			scanner.close();
-//			Pattern pattern = Pattern.compile("(>)((http)(\\S+?)(large)(\\S+?)(\\.jpg))(<)");
-//			String string = builder.toString();
-//			Matcher matcher = pattern.matcher(string);
-//			while (matcher.find()) {
-//				// System.out.println(string.substring(matcher.start(),
-//				// matcher.end()));
-//				System.out.println(matcher.group(2));
-//			}
-//			// System.out.println(builder.toString());
-//		} catch (FileNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
-		String p1 = "11";
-		String p2 = "99";
-		System.out.println(addStrings(p1, p2));
-
-		System.out.println("done!");
-	}
-
+public class AddBigInteger {
 	static public String addStrings(String num1, String num2) {
 		char[] param_shorter;
 		char[] param_longer;
@@ -67,7 +16,7 @@ public class test {
 		for (int i = 0; i < param_longer_pre.length; i++) {
 			param_longer[i + 1] = param_longer_pre[i];
 		}
-		param_longer[0]='0';
+		param_longer[0] = '0';
 		int int_temp = 0;
 		int result_each_char = 0;
 		int param1 = 0;
@@ -92,13 +41,12 @@ public class test {
 			current_longer_param_index--;
 			current_shorter_param_index--;
 		}
-		if(param_longer[0] == '0'){
-			return new String(param_longer,1,param_longer.length-1);
-		}else{
-			return new String(param_longer,0,param_longer.length);	
+		if (param_longer[0] == '0') {
+			return new String(param_longer, 1, param_longer.length - 1);
+		} else {
+			return new String(param_longer, 0, param_longer.length);
 		}
 
-		
 	}
 
 	static private char convertIntToChar(int c) {

@@ -21,8 +21,8 @@ public class PageParser_9_1 implements Runnable{
 		while(matcher.find()){
 			String url = matcher.group();
 			System.out.println(page_number+" ===>" + url);
-//			new Thread(new PictureDownloader_9_1(url, page_number)).start();
-			Spider_9.pool.submit(new PictureDownloader_9_1(url, page_number));
+			new Thread(new PictureDownloader_9_1(url, page_number)).start();
+//			Spider_9.pool.submit(new PictureDownloader_9_1(url, page_number));
 		}
 		
 	}

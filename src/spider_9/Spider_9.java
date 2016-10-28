@@ -18,7 +18,7 @@ public class Spider_9 {
 	public static void main(String args[]) {
 		Random random = new Random();
 		int start_page_number = 2174;
-		int page_count = 5;
+		int page_count = 20;
 		int end_page_number = start_page_number - page_count;
 		
 		String url = "http://jandan.net/ooxx/page-";
@@ -48,8 +48,8 @@ public class Spider_9 {
 				
 				
 				PageParser_9_1 parser_9_1 = new PageParser_9_1(builder.toString(), i);
-//				new Thread(parser_9).start();
-				pool.submit(parser_9_1);
+				new Thread(parser_9_1).start();
+//				pool.submit(parser_9_1);
 				
 				int time_span = (3+random.nextInt(7)) * 1000;
 				Thread.sleep(time_span);

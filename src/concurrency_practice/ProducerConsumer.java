@@ -32,12 +32,13 @@ public class ProducerConsumer {
 						synchronized (list) {
 							try {
 								while (list.size() == MAX) {
+									System.out.println("list is full , wait");
 									list.wait();
 								}
 								String string = new Date().toString();
 								list.add(string);
 								System.out.println(">>>>>>>> producer add a string to list");
-								Thread.sleep(new Random().nextInt(3) * 1000);
+								Thread.sleep(new Random().nextInt(3) * 100);
 								list.notify();
 
 							} catch (Exception e) {
@@ -75,13 +76,14 @@ public class ProducerConsumer {
 							try {
 
 								while (list.size() == 0) {
+									System.out.println("list is empty , wait");
 									list.wait();
 								}
 								String string = list.getFirst();
 								System.out.println("<<<<<<<<<<<<<consumer remove a string : " + string);
 								list.removeFirst();
 
-								Thread.sleep(new Random().nextInt(3) * 1000);
+								Thread.sleep(new Random().nextInt(3) * 100);
 								list.notify();
 
 							} catch (Exception e) {

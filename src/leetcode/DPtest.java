@@ -1,8 +1,8 @@
 package leetcode;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
@@ -60,42 +60,162 @@ public class DPtest {
 
 		// System.out.println(hammingDistance(1, 4));
 		// System.out.println(isValid("(){}[][][]"));
-//		List<String> ls = readBinaryWatch(2);
-//		for (String string : ls) {
-//			System.out.println(string);
-//		}
-		System.out.println(maxProfit_1(new int[]{4,2,7,1,11}));
+		// List<String> ls = readBinaryWatch(2);
+		// for (String string : ls) {
+		// System.out.println(string);
+		// }
+		// System.out.println(maxProfit_1(new int[]{4,2,7,1,11}));
+		// System.out.println(isSubsequence("leeeetcode",
+		// "blyyyyyyyyyyyyyyeyyyyyyyeyyyyyyyeyyyyy"
+		// + "yyyyyyyyyyyyyeyyyyyyyyyyyyytyyyyyyyycyyyyyyyyyyyyyoyyyyyyyyyyyy"
+		// +
+		// "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyydyyyyyyyyyyyyyeyyyyyyy"));
+		// List<Integer> li = findDuplicates(new int[]{4,3,2,7,8,2,3,1});
+		// for (Integer integer : li) {
+		// System.out.println(integer);
+		// }
+
+//		TreeNode node1 = new TreeNode(1);
+//		TreeNode node2 = new TreeNode(2);
+//		TreeNode node3 = new TreeNode(3);
+//		TreeNode node4 = new TreeNode(4);
+//		TreeNode node5 = new TreeNode(5);
+//		TreeNode node6 = new TreeNode(6);
+//		TreeNode node7 = new TreeNode(7);
+//		node1.left = node2;
+//		node1.right = node3;
+//		node2.left = node4;
+//		node3.left = node5;
+//		node3.right = node6;
+//		node5.left = node7;
+//		System.out.println(findBottomLeftValue(node1));
+		
+//		System.out.println(countBattleships(new char[][]{{'x','.','.','x'},{'.','.','.','x'},{'.','.','.','x'}}));
+		
+		
 	}
-    public static int maxProfit_1(int[] prices) {
-    	if(prices.length<2)
-    		return 0;
-    	int[] result = new int[prices.length];
-    	int Max_profit = Integer.MIN_VALUE;
-    	for(int i = 1;i<prices.length;i++)
-    	{
-    		int max = Integer.MIN_VALUE;
-    		int temp = Integer.MIN_VALUE;
-    		int min = Integer.MAX_VALUE;
-    		for(int j = i-3;j>-3;j--)
-    		{
-    			min = min > prices[j+2]?prices[j+2]:min;
-    			temp = (j>-1?result[j]:0) + prices[i] - min;
-    			if(temp > max)
-    				max = temp;
-    		}
-    		result[i] = max;
-    		if(max > Max_profit)
-    			Max_profit = max;
-    	}
-    	return Max_profit > 0?Max_profit:0;
-    }
 	
-    public static int[][] generateMatrix(int n) {
-        int[][] matrix = new int[n][n];
-        
-        
-        return matrix;
-    }
+
+
+	public static int countBattleships(char[][] board) {
+		int row = board.length;
+		int column = board[0].length;
+		int battleShipNum = 0;
+		for (int i = 0; i < row; i++) {
+			for (int j = 0; j < column; j++) {
+				System.out.print(board[i][j] + " ");
+				if (board[i][j] == 'x' && (j - 1 < 0 ? true : (board[i][j - 1] != 'x'))
+						&& (i - 1 < 0 ? true : (board[i - 1][j] != 'x'))) {
+					battleShipNum++;
+				}
+			}
+			System.out.println();
+		}
+		return battleShipNum;
+	}
+
+	public static String optimalDivision(int[] nums) {
+		String priority_str = null;
+		;
+
+		return priority_str;
+	}
+
+	public static int findBottomLeftValue(TreeNode root) {
+		List<TreeNode> lt = new ArrayList<>();
+		List<TreeNode> lt_last = new ArrayList<>();
+		lt.add(root);
+		boolean flag = true;
+		while (flag) {
+			flag = false;
+
+			for (TreeNode treeNode : lt) {
+				if (treeNode.left != null) {
+					lt_last.add(treeNode.left);
+					flag = true;
+				}
+				if (treeNode.right != null) {
+					lt_last.add(treeNode.right);
+					flag = true;
+				}
+			}
+			if (flag) {
+				List<TreeNode> temp = lt;
+				lt = lt_last;
+				lt_last = temp;
+				lt_last.clear();
+			}
+
+		}
+		return lt.get(0).val;
+
+	}
+
+	public static List<Integer> findDuplicates(int[] nums) {
+		if (nums == null)
+			return null;
+		List<Integer> list = new LinkedList<>();
+		for (int i = 0; i < nums.length; i++) {
+			int index = nums[i] > 0 ? nums[i] : -nums[i];
+			index--;
+			if (nums[index] < 0)
+				list.add(index + 1);
+			else
+				nums[index] = -nums[index];
+		}
+		return list;
+	}
+
+	public static boolean isSubsequence(String s, String t) {
+		if (s == null || s.length() == 0)
+			return true;
+		if (t == null || s.length() > t.length())
+			return false;
+		int index_s = 0, index_t = 0;
+		int n = s.length();
+		index_t = t.indexOf(s.charAt(index_s++), index_t);
+		if (index_t < 0)
+			return false;
+		while (index_s < n) {
+			index_t = t.indexOf(s.charAt(index_s++), index_t + 1);
+			if (index_t < 0)
+				return false;
+		}
+		return true;
+	}
+
+	public static int maxProfit_2(int[] prices) {
+
+		return 0;
+	}
+
+	public static int maxProfit_1(int[] prices) {
+		if (prices.length < 2)
+			return 0;
+		int[] result = new int[prices.length];
+		int Max_profit = Integer.MIN_VALUE;
+		for (int i = 1; i < prices.length; i++) {
+			int max = Integer.MIN_VALUE;
+			int temp = Integer.MIN_VALUE;
+			int min = Integer.MAX_VALUE;
+			for (int j = i - 3; j > -3; j--) {
+				min = min > prices[j + 2] ? prices[j + 2] : min;
+				temp = (j > -1 ? result[j] : 0) + prices[i] - min;
+				if (temp > max)
+					max = temp;
+			}
+			result[i] = max;
+			if (max > Max_profit)
+				Max_profit = max;
+		}
+		return Max_profit > 0 ? Max_profit : 0;
+	}
+
+	public static int[][] generateMatrix(int n) {
+		int[][] matrix = new int[n][n];
+
+		return matrix;
+	}
 
 	public static List<String> list;
 
@@ -110,36 +230,34 @@ public class DPtest {
 	public static void read(int[] lights_arr, int index, int last_n) {
 		if (index < lights_arr.length && last_n > 0) {
 			lights_arr[index] = 1;
-			if (lights_arr.length -1 - index >= last_n - 1) {
+			if (lights_arr.length - 1 - index >= last_n - 1) {
 				read(lights_arr, index + 1, last_n - 1);
 			}
 			lights_arr[index] = 0;
-			if (lights_arr.length -1 - index >= last_n) {
+			if (lights_arr.length - 1 - index >= last_n) {
 				read(lights_arr, index + 1, last_n);
 			}
 		} else {
 			int hour = binaryToInt(lights_arr, 0, 3);
-			if(hour>11)
+			if (hour > 11)
 				return;
 			int minute = binaryToInt(lights_arr, 4, 9);
-			if(minute>59)
+			if (minute > 59)
 				return;
-			if(minute>9)
-				list.add(hour+":"+minute);
-			else if(minute>0)
-				list.add(hour+":0"+minute);
-			else if(minute == 0)
-				list.add(hour+":00");
+			if (minute > 9)
+				list.add(hour + ":" + minute);
+			else if (minute > 0)
+				list.add(hour + ":0" + minute);
+			else if (minute == 0)
+				list.add(hour + ":00");
 		}
 	}
 
 	public static int binaryToInt(int[] binary_arr, int start, int end) {
 		int res = 0;
-		for(int i = start;i<=end;i++)
-		{
-			if(binary_arr[i] == 1)
-			{
-				res = res | (1<<(end-i));
+		for (int i = start; i <= end; i++) {
+			if (binary_arr[i] == 1) {
+				res = res | (1 << (end - i));
 			}
 		}
 		return res;

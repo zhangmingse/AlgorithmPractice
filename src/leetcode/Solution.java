@@ -453,7 +453,7 @@ public class Solution {
 //			System.out.println();
 //		}
 //		System.out.println("end========================================");
-
+//
 		return compose(nums, 0, size_n - 1, max_division_position,min_division_position,true);
 	}
 

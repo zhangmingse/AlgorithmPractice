@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -30,6 +31,8 @@ public class Solution {
 			val = x;
 		}
 	}
+	
+	
 
 	public static void showTree_rootFirst(TreeNode root) {
 		if (root == null)
@@ -431,36 +434,196 @@ public class Solution {
 			}
 		}
 
-//		System.out.println("max========================================");
-//		for (int a = 0; a < size_n; a++) {
-//			for (int b = 0; b < size_n; b++) {
-//				System.out.format("%14f  ", max[a][b]);
-//			}
-//			System.out.println();
-//		}
-//		System.out.println("min========================================");
-//		for (int a = 0; a < size_n; a++) {
-//			for (int b = 0; b < size_n; b++) {
-//				System.out.format("%14f  ", min[a][b]);
-//			}
-//			System.out.println();
-//		}
-//		System.out.println("div========================================");
-//		for (int a = 0; a < size_n; a++) {
-//			for (int b = 0; b < size_n; b++) {
-//				System.out.format("%14d  ", max_division_position[a][b]);
-//			}
-//			System.out.println();
-//		}
-//		System.out.println("end========================================");
-//
-		return compose(nums, 0, size_n - 1, max_division_position,min_division_position,true);
+		// System.out.println("max========================================");
+		// for (int a = 0; a < size_n; a++) {
+		// for (int b = 0; b < size_n; b++) {
+		// System.out.format("%14f ", max[a][b]);
+		// }
+		// System.out.println();
+		// }
+		// System.out.println("min========================================");
+		// for (int a = 0; a < size_n; a++) {
+		// for (int b = 0; b < size_n; b++) {
+		// System.out.format("%14f ", min[a][b]);
+		// }
+		// System.out.println();
+		// }
+		// System.out.println("div========================================");
+		// for (int a = 0; a < size_n; a++) {
+		// for (int b = 0; b < size_n; b++) {
+		// System.out.format("%14d ", max_division_position[a][b]);
+		// }
+		// System.out.println();
+		// }
+		// System.out.println("end========================================");
+		//
+		return compose(nums, 0, size_n - 1, max_division_position, min_division_position, true);
+	}
+
+	public void add_tree_node(Map<Integer, List<TreeNode>> level, int n) {
+		boolean flag = false;
+		List<TreeNode> list = new LinkedList<>();
+
+		for (TreeNode node : level.get(n - 1)) {
+			if (node.left != null) {
+				list.add(node.left);
+				flag = true;
+			}
+			if (node.right != null) {
+				list.add(node.right);
+				flag = true;
+			}
+		}
+		if (flag) {
+			level.put(n, list);
+			add_tree_node(level, n + 1);
+
+		}
+	}
+
+	public List<Integer> largestValues(TreeNode root) {
+		List<Integer> res_list = new LinkedList<>();
+		if (root == null)
+			return res_list;
+
+		Map<Integer, List<TreeNode>> map = new HashMap<>();
+		List<TreeNode> list = new LinkedList<>();
+		list.add(root);
+		map.put(0, list);
+		add_tree_node(map, 1);
+		int index = 0;
+
+		for (; index < Integer.MAX_VALUE; index++) {
+			int max = Integer.MIN_VALUE;
+			if ((list = map.get(index)) != null) {
+				for (TreeNode treeNode : list) {
+					if (max < treeNode.val) {
+						max = treeNode.val;
+					}
+				}
+				res_list.add(max);
+			} else {
+				break;
+			}
+		}
+		return res_list;
+	}
+
+	List<List<Integer>> res_list = new LinkedList<>();
+	List<Integer> temp_list = new LinkedList<>();
+
+	public List<List<Integer>> subsets(int[] nums) {
+		pick(nums, 0);
+		return res_list;
+	}
+
+	private void pick(int[] nums, int index) {
+		if (index >= nums.length) {
+
+			res_list.add(new LinkedList<>(temp_list));
+			return;
+		}
+		pick(nums, index + 1);
+		temp_list.add(nums[index]);
+		pick(nums, index + 1);
+		temp_list.remove(temp_list.indexOf(nums[index]));
+	}
+
+	/***********************************************************/
+	public int findKthLargest(int[] nums, int k) {
+		quick_sort_int(nums, 0, nums.length);
+		return nums[nums.length - k];
+	}
+
+	/***********************************************************/
+	public boolean searchMatrix(int[][] matrix, int target) {
+		if (matrix == null || matrix.length == 0)
+			return false;
+		int row_num = matrix.length;
+		int column_num = matrix[0].length;
+		int column_i = 0, row_j = 0;
+		for (column_i = column_num - 1; column_i > -1; column_i--) {
+			if (matrix[0][column_i] == target)
+				return true;
+			else if (matrix[0][column_i] < target) {
+				for (; row_j < row_num; row_j++) {
+					if (matrix[row_j][column_i] == target)
+						return true;
+					else if (matrix[row_j][column_i] > target)
+						break;
+				}
+			}
+
+		}
+		return false;
 	}
 
 	/***********************************************************/
 	@SuppressWarnings("unused")
 	public static void main(String args[]) {
 
+		/*******************************************/
+		// 2018届网易校招笔试题
+
+		/********************************************/
+		// 2017届网易校招笔试题
+		Scanner scanner = new Scanner(System.in);
+		int n = scanner.nextInt();
+		int[] arr = new int[n];
+		for (int i = 0; i < n; i++) {
+			arr[i] = scanner.nextInt();
+
+		}
+		int k = scanner.nextInt();
+		int d = scanner.nextInt();
+
+		scanner.close();
+
+		long[][] result = new long[n][k + 1];
+
+		for(int i = 0;i<n;i++)
+		{
+			for(int j = 0;j<k+1;j++)
+			{
+				result[i][j] = Long.MIN_VALUE;
+			}
+		}
+		result[0][1] = arr[0];
+		for (int i = 1; i < n; i++) {
+			if (arr[i] < result[i - 1][1])
+				result[i][1] = result[i - 1][1];
+			else
+				result[i][1] = arr[i];
+		}
+
+		long max = Long.MIN_VALUE;
+		for (int k_index = 2; k_index <= k; k_index++) {
+			for (int n_index = k_index-1; n_index < n; n_index++) {
+				for (int i = n_index - 1; i >= k_index-2 && i >= n_index - d; i--) {
+					max = arr[n_index] * result[i][k_index-1];
+					if(max > result[n_index][k_index])
+						result[n_index][k_index] = max;
+				}
+			}
+		}
+		
+//		for(int i = 0;i<n;i++)
+//		{
+//			for(int j = 0;j<k+1;j++)
+//			{
+//				System.out.format("%30d", result[i][j]);
+//			}
+//			System.out.println();
+//		}
+//		System.out.println("-----------------------------");
+		System.out.println(result[n - 1][k]);
+		/********************************************/
+		// int[][] matrix = { { 1, 4, 7, 11, 15 }, { 2, 5, 8, 12, 19 }, { 3, 6,
+		// 9, 16, 22 }, { 10, 13, 14, 17, 24 },
+		// { 18, 21, 23, 26, 30 } };
+		// int[][] ma = {};
+		// System.out.println(new Solution().searchMatrix(ma,0));
+		/********************************************/
 		// Scanner scanner = new Scanner(System.in);
 		// Long x ,k;
 		// while(scanner.hasNext()){
@@ -489,21 +652,23 @@ public class Solution {
 		//
 		//
 		///////////////////////////////////////////////
-		// TreeNode node1_1 = new TreeNode(1);
-		// TreeNode node1_3 = new TreeNode(3);
+		TreeNode node1_1 = new TreeNode(1);
+		TreeNode node1_3 = new TreeNode(3);
 		// TreeNode node1_2 = new TreeNode(2);
 		// TreeNode node1_5 = new TreeNode(5);
-		// TreeNode node2_2 = new TreeNode(2);
+		TreeNode node2_2 = new TreeNode(2);
 		// TreeNode node2_1 = new TreeNode(1);
-		// TreeNode node2_3 = new TreeNode(3);
+		TreeNode node2_3 = new TreeNode(3);
 		// TreeNode node2_4 = new TreeNode(4);
-		// TreeNode node2_7 = new TreeNode(7);
-		//
-		// node1_1.left = node1_3;
-		// node1_1.right = node1_2;
-		// node1_3.left = node1_5;
-		// node2_2.left = node2_1;
-		// node2_2.right = node2_3;
+		TreeNode node3_5 = new TreeNode(5);
+		TreeNode node3_3 = new TreeNode(3);
+		TreeNode node3_9 = new TreeNode(9);
+
+		node1_1.left = node2_3;
+		node1_1.right = node2_2;
+		node3_3.left = node3_5;
+		node3_3.right = node3_3;
+		node2_2.right = node3_9;
 		// node2_1.right = node2_4;
 		// node2_3.right = node2_7;
 		//
@@ -518,7 +683,20 @@ public class Solution {
 		/*************************************/
 		// System.out.println(arrayPairSum(new int[]{2,1,4,3}));
 		/**************************************/
-		System.out.println(new Solution().optimalDivision(new int[] { 1000,100,10 }));
+		// System.out.println(new Solution().optimalDivision(new int[] {
+		// 1000,100,10 }));
+		// for (int val : new Solution().largestValues(node1_1)) {
+		// System.out.println(val + " ");
+		// }
+
+		// List<List<Integer>> list = new Solution().subsets(new int[] { 1, 2, 3
+		// });
+		// for (List<Integer> list2 : list) {
+		// for (Integer integer : list2) {
+		// System.out.print(integer + " ");
+		// }
+		// System.out.println();
+		// }
 	}
 
 	public static int[] longToBinaryArr(Long i) {

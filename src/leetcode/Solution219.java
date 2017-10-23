@@ -1,13 +1,6 @@
 package leetcode;
 
-import java.lang.reflect.Array;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Queue;
 import java.util.Set;
 
 public class Solution219 {
@@ -20,7 +13,7 @@ public class Solution219 {
 
 	public boolean containsNearbyDuplicate(int[] nums, int k) {
 		
-		Set<Integer> set = new HashSet();
+		Set<Integer> set = new HashSet<Integer>();
 		if(nums == null || nums.length <2 || k == 0){
 			return false;
 		}
